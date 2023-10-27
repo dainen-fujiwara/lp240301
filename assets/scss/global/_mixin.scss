@@ -1,0 +1,22 @@
+$breakpoint: (
+  xs: "(max-width: 280px)",
+  s: "(max-width: 390px)",
+  sp: "(max-width: 828px)",
+  m: "(max-width: 1024px)",
+  l: "(max-width: 1280px)",
+  xl: "(max-width: 1440px)",
+  xxl: "(max-width: 1680px)",
+);
+@mixin mq($bp) {
+    @media #{map-get($breakpoint, $bp)} {
+        @content;
+    }
+}
+
+@mixin anchor() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

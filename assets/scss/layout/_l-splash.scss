@@ -1,0 +1,48 @@
+@use "../global" as *;
+
+.l-splash {
+  /*fixedで全面に固定*/
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  text-align: center;
+  color: #fff;
+
+  &__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    width: 100%;
+  
+    svg {
+      height: 2px;
+    }
+  }
+
+  .loader_cover {
+    width: 100%;
+    height: 50%;
+    background: $palette-yellow;
+    transition: all 0.2s cubic-bezier(0.04, 0.435, 0.315, 0.9);
+    transform: scaleY(1);
+  }
+  
+  .loader_cover-up {
+    transform-origin: center top;
+  }
+  
+  .loader_cover-down {
+    position: absolute;
+    bottom: 0;
+    transform-origin: center bottom;
+  }
+  
+  .coveranime {
+    transform: scaleY(0);
+  }
+  
+}
