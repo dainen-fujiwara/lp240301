@@ -1,0 +1,27 @@
+@use "../global" as *;
+
+.l-campaign {
+  position: relative;
+  background-color: $palette-green;
+  border-radius: 200px 0 0 0;
+  padding: 80px 0;
+  &__contents {
+    padding: 0 20px;
+    &--title {
+      margin: auto;
+      color: $palette-white;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    &--list {
+      background: $palette-white;
+      padding: 20px;
+      width: calc(100% - 60px);
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+  }
+}
+

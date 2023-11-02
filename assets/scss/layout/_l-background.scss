@@ -1,12 +1,29 @@
 @use "../global" as *;
 
 .l-background {
-  z-index: -1;
   position: fixed;
   width: 100vw;
   height: 100vh;
+  max-width: 1480px;
   background-color: $palette-white;
-
+  &::before {
+    content: "";
+    position: fixed;
+    background-color: $palette-yellow;
+    z-index: 1;
+    width: calc((100vw - 1480px) / 2);
+    height: 100vh;
+    left: 0;
+  }
+  &::after {
+    content: "";
+    position: fixed;
+    background-color: $palette-yellow;
+    z-index: 1;
+    width: calc((100vw - 1480px) / 2);
+    height: 100vh;
+    right: 0;
+  }
   .parts {
     position: absolute;
     background-repeat: no-repeat;
@@ -16,45 +33,74 @@
     transition: transform .5s;
     &.parts1{
       background-image: url(../img/parts_1H.png);
-      top: 20px;
-      left: calc(50% - 300px);
-      transform: rotate(45deg);
+      width: 350px;
+      height: 350px;
+      top: -100px;
+      left: calc(50% - 500px);
+      transform: rotate(330deg);
     }
     &.parts2{
       background-image: url(../img/parts_2A.png);
-      top: 50px;
-      left: calc(50% + 100px);
-      transform: rotate(330deg);
+      width: 260px;
+      height: 260px;
+      top: 250px;
+      left: calc(50% - 380px);
+      transform: rotate(240deg);
     }
     &.parts3{
       background-image: url(../img/parts_3R.png);
+      width: 280px;
+      height: 280px;
+      top: -30px;
+      left: calc(50% + 120px);
+      transform: rotate(30deg);
     }
     &.parts4{
       background-image: url(../img/parts_4I.png);
+      width: 280px;
+      height: 280px;
+      top: 240px;
+      left: calc(50% + 120px);
+      transform: rotate(120deg);
     }
     &.parts5{
       background-image: url(../img/parts_5M.png);
+      width: 350px;
+      height: 350px;
+      top: 680px;
+      left: calc(50% - 450px);
+      transform: rotate(240deg);
     }
     &.parts6{
       background-image: url(../img/parts_6A.png);
+      width: 220px;
+      height: 220px;
+      top: 500px;
+      left: calc(50% + 80px);
+      transform: rotate(120deg);
     }
     &.parts7{
       background-image: url(../img/parts_7T.png);
+      width: 500px;
+      height: 500px;
+      top: 240px;
+      left: calc(50% - 880px);
+      transform: rotate(75deg);
     }
     &.parts8{
       background-image: url(../img/parts_8C.png);
       width: 300px;
       height: 300px;
-      bottom: calc(0% - 50px);
-      left: calc(50% + 100px);
+      top: calc(0% + 700px);
+      left: calc(50% + 150px);
       transform: rotate(50deg);
     }
     &.parts9{
       background-image: url(../img/parts_9H.png);
-      width: 500px;
-      height: 500px;
-      bottom: calc(0% + 200px);
-      left: calc(50% + 400px);
+      width: 700px;
+      height: 700px;
+      top: calc(0% + 180px);
+      left: calc(50% + 350px);
       transform: rotate(50deg);
     }
   }

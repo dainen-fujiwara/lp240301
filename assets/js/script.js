@@ -79,27 +79,13 @@ $('.slider').on('touchmove', function(event, slick, currentSlide, nextSlide){
 		arrows: false,//左右の矢印はなし
 		autoplay: true,//自動的に動き出すか。初期値はfalse。
 		autoplaySpeed: 0,//自動的に動き出す待ち時間。初期値は3000ですが今回の見せ方では0
-		speed: 6900,//スライドのスピード。初期値は300。
+		speed: 7000,//スライドのスピード。初期値は300。
 		infinite: true,//スライドをループさせるかどうか。初期値はtrue。
 		pauseOnHover: false,//オンマウスでスライドを一時停止させるかどうか。初期値はtrue。
 		pauseOnFocus: false,//フォーカスした際にスライドを一時停止させるかどうか。初期値はtrue。
 		cssEase: 'linear',//動き方。初期値はeaseですが、スムースな動きで見せたいのでlinear
-		slidesToShow: 4,//スライドを画面に4枚見せる
+		slidesToShow: 1.25,//スライドを画面に1.25枚見せる
 		slidesToScroll: 1,//1回のスライドで動かす要素数
-		responsive: [
-			{
-			breakpoint: 769,//モニターの横幅が769px以下の見せ方
-			settings: {
-				slidesToShow: 2,//スライドを画面に2枚見せる
-			}
-		},
-		{
-			breakpoint: 426,//モニターの横幅が426px以下の見せ方
-			settings: {
-				slidesToShow: 1.5,//スライドを画面に1.5枚見せる
-			}
-		}
-	]
 	});
 
 /*===========================================================*/
@@ -168,18 +154,11 @@ function fadeAnime(){
 		});
 }
 
-/*===========================================================*/
-/*印象編　9-2　PNG アニメーション（APNG）*/
-/*===========================================================*/
-
 APNG.ifNeeded().then(function () {
 	var images = document.querySelectorAll(".apng-image");
 	for (var i = 0; i < images.length; i++) APNG.animateImage(images[i]);
 });
 
-/*===========================================================*/
-/*関数をまとめる*/
-/*===========================================================*/
 
 var rotate = [];
 var set_position = 0;
@@ -240,47 +219,11 @@ $(window).on('load',function(){
 		$(".loader_cover-up").addClass("coveranime");//カバーが上に上がるクラス追加
 		$(".loader_cover-down").addClass("coveranime");//カバーが下に下がるクラス追加
 
-	    //=====ここからローディングエリア（splashエリア）をフェードアウトした後に動かしたいJSをまとめる
-		$("#splash").fadeOut('slow',function(){//#splashエリアをフェードアウトした後にアニメーションを実行
-
-	    /* 印象編 8-11テキストが1文字づつ出現*/
-			//spanタグを追加する
-			var element = $(".eachTextAnime");
-			element.each(function () {
-				var text = $(this).text();
-				var textbox = "";
-				text.split('').forEach(function (t, i) {
-					if (t !== " ") {
-						if (i < 10) {
-							textbox += '<span style="animation-delay:.' + i + 's;">' + t + '</span>';
-						} else {
-							var n = i / 10;
-							textbox += '<span style="animation-delay:' + n + 's;">' + t + '</span>';
-						}
-
-					} else {
-						textbox += t;
-					}
-				});
-				$(this).html(textbox);
-			});
-
-			EachTextAnimeControl();//印象編 8-11テキストが1文字づつ出現の関数を呼ぶ
-	    fadeAnime();//印象編 4 最低限おぼえておきたい動きの関数を呼ぶ
-
-	  }); //=====ここまでローディングエリア（splashエリア）を0.8秒でフェードアウトした後に動かしたいJSをまとめる
+		//splash削除
+		setTimeout(function(){
+			$('.l-splash').remove();
+		}, 500);
 	});//=====ここまでプログレスバー表示
-
-
-    /*===========================================================*/
-    /*機能編 4-2-9背景色が四角に拡大（四隅へ）*/
-    /*===========================================================*/
-
-    //=====ここから背景が伸びた後に動かしたいJSをまとめる
-    $('.splashbg').on('animationend', function() {
-        fadeAnime();//印象編 4 最低限おぼえておきたい動きの関数を呼ぶ
-    });
-    //=====ここまで背景が伸びた後に動かしたいJSをまとめる
 
 });// ここまでページが読み込まれたらすぐに動かしたい場合の記述
 
@@ -305,10 +248,11 @@ function EachTextAnimeControl() {
 function rotateParts(pm){
 	$('.parts').each(function(i, e){
 		var key = i + 1;
+		var n = i % 4 + 2;
 		if ( i % 2 == 1 ) {
-			rotate[key] += 5 * pm;
+			rotate[key] += n * pm;
 		} else {
-			rotate[key] -= 5 * pm;
+			rotate[key] -= n * pm;
 		}
 		$(e).css({ transform: 'rotate(' + rotate[key] + 'deg)' })
 	});
