@@ -4,7 +4,7 @@
   position: relative;
   &__body {
     padding: 80px 0;
-    border-radius: 200px 0 0 0;
+    border-radius: 160px 0 0 0;
     &:has(.date1.active){
       background-color: $palette-yellow;
     }
@@ -37,12 +37,13 @@
       box-sizing: content-box;
       -moz-box-sizing: content-box;
       -webkit-box-sizing: content-box;
-      width: 10px;
-      height: 10px;
+      width: 14px;
+      height: 14px;
       cursor: pointer;
       display: inline-block;
+      vertical-align: middle;
       &.active{
-        border: solid 2px $palette-white;
+        border: solid 3px $palette-white;
       }
       &.date1 {
         background-color: $palette-yellow;
@@ -113,16 +114,17 @@
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 20px;
-        border: solid 2px;
-        border-color: $palette-white;
+        background-color: $palette-darkgray;
+        text-align: center;
         &:last-child{
           margin-bottom: 0px;
         }
       }
       .btn_primary {
         background-color: $palette-white;
+        padding: 15px 10px;
       }
-      .btn_confirm {
+      .btn_list {
         color: $palette-white;
       }
     }

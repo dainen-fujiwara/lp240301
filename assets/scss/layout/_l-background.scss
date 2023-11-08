@@ -33,10 +33,10 @@
     transition: transform .5s;
     &.parts1{
       background-image: url(../img/parts_1H.png);
-      width: 350px;
-      height: 350px;
+      width: 380px;
+      height: 380px;
       top: -100px;
-      left: calc(50% - 500px);
+      left: calc(50% - 510px);
       transform: rotate(330deg);
     }
     &.parts2{
@@ -81,25 +81,25 @@
     }
     &.parts7{
       background-image: url(../img/parts_7T.png);
-      width: 500px;
-      height: 500px;
-      top: 240px;
+      width: 550px;
+      height: 550px;
+      top: 260px;
       left: calc(50% - 880px);
       transform: rotate(75deg);
     }
     &.parts8{
       background-image: url(../img/parts_8C.png);
-      width: 300px;
-      height: 300px;
-      top: calc(0% + 700px);
-      left: calc(50% + 150px);
+      width: 400px;
+      height: 400px;
+      top: calc(0% + 680px);
+      left: calc(50% + 120px);
       transform: rotate(50deg);
     }
     &.parts9{
       background-image: url(../img/parts_9H.png);
       width: 700px;
       height: 700px;
-      top: calc(0% + 180px);
+      top: calc(0% + 60px);
       left: calc(50% + 350px);
       transform: rotate(50deg);
     }

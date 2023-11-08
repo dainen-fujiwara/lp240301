@@ -1,22 +1,207 @@
-/*===========================================================*/
-/*機能編 5-1-16クリックしたら円形背景が拡大（上から）*/
-/*===========================================================*/
+$(function() {
 
-$(".openbtn").click(function () {//ボタンがクリックされたら
-	$(this).toggleClass('active');//ボタン自身に activeクラスを付与し
-    $("#g-nav").toggleClass('panelactive');//ナビゲーションにpanelactiveクラスを付与
-    $(".circle-bg").toggleClass('circleactive');//丸背景にcircleactiveクラスを付与
+  //DATEコンテンツ
+  $('.l-date .paging .left').on('click', function(){
+		pageMove('date', -1);
+	});
+  $('.l-date .paging .right').on('click', function(){
+		pageMove('date', 1);
+	});
+	$('.l-date .l-date__list li').on('click', function(){
+		var set_num = $('.l-date .l-date__list li').index(this) + 1;
+		pageMove('date', 0, set_num);
+	});
+
+	//SCHEDULEコンテンツ
+	$('.l-schedule .paging .left').on('click', function(){
+		pageMove('schedule', -1);
+	});
+	$('.l-schedule .paging .right').on('click', function(){
+		pageMove('schedule', 1);
+	});
+
+	//SEMINARコンテンツ
+	$('.l-seminar .paging .left').on('click', function(){
+		pageMove('seminar', -1);
+	});
+	$('.l-seminar .paging .right').on('click', function(){
+		pageMove('seminar', 1);
+	});
+
+	//予約フォーム
+	$(".btn_primary").modaal({
+		overlay_close:true,		//モーダル背景クリック時に閉じるか
+		fullscreen:false,			//フルスクリーンモードにするか
+		before_open:function(){
+			$('html').css('overflow-y','hidden');
+		},
+		after_close:function(){
+			$('html').css('overflow-y','scroll');
+		}
+	});
+	$(".btn_primary").on('click', function(){
+		var date_id = $(this).attr('date-id');
+		var title = "";
+		
+		if ( date_id == "1" ) {
+			title = "2月29日（木）午前の部";
+		} else if ( date_id == "2" ) {
+			title = "2月29日（木）午後の部";
+		} else if ( date_id == "3" ) {
+			title = "3月1日（金）午前の部";
+		} else if ( date_id == "4" ) {
+			title = "3月1日（金）午後の部";
+		} else if ( date_id == "5" ) {
+			title = "3月2日（土）午前の部";
+		} else if ( date_id == "6" ) {
+			title = "3月2日（土）午後の部";
+		}
+
+		$('#form-01 h3').text(title);
+		$('#form-02 h3').text(title);
+	});
+	
+	$('#reseve_btn').on('click', function(){
+		$('#form-01').fadeOut(200, function() {
+			$('#form-02').fadeIn(200);
+		})
+	});
+	$('#close_btn').on('click', function(){
+		$('.btn_primary').modaal('close');
+		setTimeout(function(){
+			$('#form-01').show();
+			$('#form-02').hide();
+		}, 200);
+	});
+
+	//参加企業一覧
+	$(".btn_list").modaal({
+		fullscreen: true, //フルスクリーンモードにするか
+		before_open:function(){
+			$('html').css('overflow-y','hidden');
+		},
+		after_close:function(){
+			$('html').css('overflow-y','scroll');
+		}
+	});
+
+	$(".btn_list").on('click', function(){
+		$('.l-modal__company').each(function(i, e){
+			$(e).hide();
+		});	
+		var date_id = $(this).attr('date-id');
+		var show_name = ".l-modal__company.date" + date_id;
+		$(show_name).show();
+	});
+
 });
 
-$("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
-    $(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
-    $("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスを除去
-    $(".circle-bg").removeClass('circleactive');//丸背景のcircleactiveクラスを除去
+//ページ移動
+function pageMove(page_name, move_num = 0, set_num = 0) {
+
+	var contents_name = "";
+	if ( page_name == "date" ) {
+		contents_name = ".l-date .l-date__contents";
+	} else if ( page_name == "schedule" ) {
+		contents_name = ".l-schedule .l-schedule__contents";
+	} else if ( page_name == "seminar" ) {
+		contents_name = ".l-seminar .l-seminar__contents";
+	}
+
+	var now = 0;
+	var max = 0;
+	$(contents_name).each(function(i, e){
+		max++;
+		if ( $(e).hasClass('active') ) {
+			now = i + 1;
+		}
+	});
+
+	var set = now + move_num;
+	if ( set == 0 ) {
+		set = max;
+	} else if ( set > max ) {
+		set = 1;
+	}
+
+	//現愛の要素名
+	var now_name = contents_name + "." + page_name + now;
+
+	//移動後の要素名
+	var set_name = "";
+	if ( set_num == 0 ) {
+		set_name = contents_name + "." + page_name + set;
+	} else {
+		set_name = contents_name + "." + page_name + set_num;
+	}
+
+	$(now_name).removeClass('active');
+	$(now_name).hide();
+	$(set_name).fadeIn(500);
+	$(set_name).addClass('active');
+
+	//DATEコンテンツの場合、マークも変更
+	if ( page_name == "date" ) {
+		var mark_now_name = ".l-date .l-date__list " + "." + page_name + now;
+
+		var mark_set_name = "";
+		if ( set_num == 0 ) {
+			mark_set_name = ".l-date .l-date__list " + "." + page_name + set;
+		} else {
+			mark_set_name = ".l-date .l-date__list " + "." + page_name + set_num;
+		}
+
+		$(mark_now_name).removeClass('active');
+		$(mark_set_name).addClass('active');
+	}
+
+}
+
+$('.slider_gallery').slick({
+	arrows: false,
+	autoplay: true,
+	autoplaySpeed: 0,
+	speed: 6000,
+	infinite: true,
+	pauseOnHover: false,
+	pauseOnFocus: false,
+	cssEase: 'linear',
+	slidesToShow: 1.25,
+	slidesToScroll: 1,
 });
 
-/*===========================================================*/
-/*機能編 8-1-8リンクボタンをクリックしたら形状が変化*/
-/*===========================================================*/
+$('.slider_logo.list1').slick({
+	arrows: false,
+	autoplay: true,
+	autoplaySpeed: 0,
+	speed: 6000,
+	infinite: true,
+	pauseOnHover: false,
+	pauseOnFocus: false,
+	cssEase: 'linear',
+	slidesToShow: 1.25,
+	slidesToScroll: 1,
+});
+
+//ずらすために時間差で動かす
+setTimeout(function(){
+	$('.slider_logo.list2').slick({
+		arrows: false,
+		autoplay: true,
+		autoplaySpeed: 0,
+		speed: 6000,
+		infinite: true,
+		pauseOnHover: false,
+		pauseOnFocus: false,
+		cssEase: 'linear',
+		slidesToShow: 1.25,
+		slidesToScroll: 1,
+	});	
+}, 1000);
+
+//$('html').css('overflow-y','hidden');
+
+
 
 //スクロールした際の動きを関数でまとめる
 function PageTopAnime() {
@@ -31,66 +216,6 @@ function PageTopAnime() {
 		}
 	}
 }
-
-// #page-topをクリックした際の設定
-$('#page-top').click(function () {
-	var scroll = $(window).scrollTop(); //スクロール値を取得
-	if(scroll > 0){
-		$(this).addClass('floatAnime');//クリックしたらfloatAnimeというクラス名が付与
-        $('body,html').animate({
-            scrollTop: 0
-        }, 800,function(){//スクロールの速さ。数字が大きくなるほど遅くなる
-            $('#page-top').removeClass('floatAnime');//上までスクロールしたらfloatAnimeというクラス名を除く
-        });
-	}
-    return false;//リンク自体の無効化
-});
-
-
-/*===========================================================*/
-/*機能編 6-1-1横移動させて全画面で見せる*/
-/*===========================================================*/
-	$('.slider').slick({
-		autoplay: true,//自動的に動き出すか。初期値はfalse。
-		autoplaySpeed: 3000,//次のスライドに切り替わる待ち時間
-		speed:500,//スライドの動きのスピード。初期値は300。
-		infinite: true,//スライドをループさせるかどうか。初期値はtrue。
-		slidesToShow: 1,//スライドを画面に3枚見せる
-		slidesToScroll: 1,//1回のスクロールで3枚の写真を移動して見せる
-		arrows:false,//左右の矢印なし
-		//prevArrow: '<div class="slick-prev"></div>',//矢印部分PreviewのHTMLを変更
-		//nextArrow: '<div class="slick-next"></div>',//矢印部分NextのHTMLを変更
-		//dots: true,//下部ドットナビゲーションの表示
-        pauseOnFocus: false,//フォーカスで一時停止を無効
-        pauseOnHover: false,//マウスホバーで一時停止を無効
-        pauseOnDotsHover: false,//ドットナビゲーションをマウスホバーで一時停止を無効
-});
-
-//スマホ用：スライダーをタッチしても止めずにスライドをさせたい場合
-$('.slider').on('touchmove', function(event, slick, currentSlide, nextSlide){
-    $('.slider').slick('slickPlay');
-});
-
-/*===========================================================*/
-/*機能編 6-1-8複数画像を流して見せる*/
-/*===========================================================*/
-
-	$('.slider2').slick({
-		arrows: false,//左右の矢印はなし
-		autoplay: true,//自動的に動き出すか。初期値はfalse。
-		autoplaySpeed: 0,//自動的に動き出す待ち時間。初期値は3000ですが今回の見せ方では0
-		speed: 7000,//スライドのスピード。初期値は300。
-		infinite: true,//スライドをループさせるかどうか。初期値はtrue。
-		pauseOnHover: false,//オンマウスでスライドを一時停止させるかどうか。初期値はtrue。
-		pauseOnFocus: false,//フォーカスした際にスライドを一時停止させるかどうか。初期値はtrue。
-		cssEase: 'linear',//動き方。初期値はeaseですが、スムースな動きで見せたいのでlinear
-		slidesToShow: 1.25,//スライドを画面に1.25枚見せる
-		slidesToScroll: 1,//1回のスライドで動かす要素数
-	});
-
-/*===========================================================*/
-/*印象編 4 最低限おぼえておきたい動き*/
-/*===========================================================*/
 
 function fadeAnime(){
 

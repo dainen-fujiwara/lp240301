@@ -9,7 +9,7 @@
     z-index: -1;
     position: absolute;
     background-color: $palette-white;
-    border-radius: 200px 0 0 0;
+    border-radius: 160px 0 0 0;
     opacity: .9;
     width: 100%;
     height: 100%;
@@ -35,7 +35,7 @@
     }
     &--date {
       margin: auto;
-      border: 2px solid $palette-red;
+      border: 2px solid;
       width: 340px;
       background-color: $palette-red;
       border-radius: 20px;
@@ -45,6 +45,18 @@
       font-weight: bold;
       padding: 2px;
       color: $palette-white;
+    }
+    &.seminar1 .l-seminar__contents--date, &.seminar2 .l-seminar__contents--date{
+      border-color: $palette-red;
+      background-color: $palette-red;
+    }
+    &.seminar3 .l-seminar__contents--date, &.seminar4 .l-seminar__contents--date{
+      border-color: $palette-green;
+      background-color: $palette-green;
+    }
+    &.seminar5 .l-seminar__contents--date, &.seminar6 .l-seminar__contents--date{
+      border-color: $palette-purple;
+      background-color: $palette-purple;
     }
     &--title {
       font-size: 14px;
@@ -61,6 +73,23 @@
       padding: 10px 20px;
       font-size: 14px;
       border: solid 1px $palette-gray;
+    }
+  }
+  &__memo {
+    padding: 0 20px;
+    display:flex;
+    justify-content: flex-end;
+    &--text {
+      font-size: 12px;
+      margin-top: 20px;
+      text-align: left;
+      position: relative;
+      display: inline-block;
+      &::before {
+        content: "※";
+        position: absolute;
+        left: -20px;
+      }
     }
   }
 }

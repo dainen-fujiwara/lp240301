@@ -33,14 +33,15 @@ a {
 }
 
 section {
-  margin: 0 0 120px;
+  margin: 120px 0 0;
   position: relative;
   .paging {
     div {
       position: absolute;
       background-color: #fff;
       z-index: 10;
-      top: calc(50% - 20px);
+/*      top: calc(50% - 20px);*/
+      top: 400px;
       width: 40px;
       height: 60px;
       cursor: pointer;
@@ -67,8 +68,8 @@ section {
     text-align: center;
     font-family: sans-serif;
   }
-  &:last-child{
-    margin-bottom: 0;
+  &:first-child{
+    margin-top: 0;
   }
 }
 
@@ -101,5 +102,11 @@ footer {
         margin-top: 20px;
       }
     }
+  }
+}
+.sp {
+  display: none !important;
+  @include mq(sp) {
+    display: block !important;
   }
 }
