@@ -1,9 +1,9 @@
 @use "../global" as *;
 
 .l-top {
-  min-height: 100vh;
   position: relative;
   &__contents {
+    padding: 20px 0;
     text-align: center;
     &--title {
       padding: 20px;
@@ -14,7 +14,7 @@
     &--date {
       margin: auto;
       border-radius: 50px;
-      background-color: $palette-blue ;
+      background-color: $palette-blue;
       color: $palette-white;
       padding: 5px 30px;
       display: inline-block;
@@ -26,9 +26,84 @@
     }
     &--topics {
       margin: 40px 20px 20px;
+      padding: 20px 10px 20px 20px;
       border-radius: 20px;
-      background-color: rgba(255,255,255,.9);
-      padding: 20px;
+      background-color: $palette-white;
+      position: relative;
+      border: solid 3px $palette-gray;
+/*
+      &::before {
+        content: "";
+        position: absolute;
+        left: -3px;
+        top: -3px;
+        width: calc(100% + 6px);
+        height: calc(100% + 6px);
+        border-radius: 20px;
+        background: linear-gradient(
+          135deg,
+          $palette-red 0%, $palette-red 16%,
+          $palette-orange 16%, $palette-orange 33%,
+          $palette-yellow 33%, $palette-yellow 50%,
+          $palette-green 50%, $palette-green 67%,
+          $palette-blue 67%, $palette-blue 83%,
+          $palette-purple 83%, $palette-purple 100%
+          );
+        z-index: -1;
+      }
+*/
+      ul {
+        list-style: none;
+      }
+      li {
+        list-style: none;
+        text-align: left;
+        font-size: 16px;
+        margin-top: 30px;
+        position: relative;
+        padding-left: 50px;
+        &:first-child {
+          margin-top: 0;
+        }
+        span {
+          font-size: 22px;
+          font-weight: bold;
+          border-bottom: solid 1px;
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          top: -5px;
+          left: -15px;
+          background-size: contain;
+        }
+        &:nth-child(1){
+          span {
+            color: $palette-blue;
+          }
+          &::before {
+            background-image: url(../img/icon_hyogo.png);
+          }
+        }
+        &:nth-child(2){
+          span {
+            color: $palette-red;
+          }
+          &::before {
+            background-image: url(../img/icon_handshake.png);
+          }
+        }
+        &:nth-child(3){
+          span {
+            color: $palette-green;
+          }
+          &::before {
+            background-image: url(../img/icon_present.png);
+          }
+        }
+      }
     }
   }
 }
@@ -38,11 +113,12 @@
     margin-top: 0;
   }
   li {
-    background-color: rgba(255,255,255,.9);
+    background-color: $palette-white;
     padding: 10px 20px;
-    border-radius: 20px;
-    height: 80px;
+    border-radius: 8px;
+    height: 70px;
     vertical-align: middle;
+    border: solid 1px $palette-gray;
   }
   img {
     width: auto;

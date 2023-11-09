@@ -11,16 +11,37 @@
     background-color: $palette-white;
     border-radius: 8px;
     &--title {
-      margin: auto;
-      color: $palette-white;
-      font-size: 16px;
+      width: 340px;
+      max-width: 100%;
+      background-color: $palette-red;
+      border-radius: 20px;
+      font-size: 20px;
       text-align: center;
-      margin-bottom: 20px;
+      margin: 10px auto 20px;
       font-weight: bold;
+      padding: 2px 8px;
+      color: #FFFFFF;
     }
     &--top {
+      position: relative;
       img {
         width: 100%;
+      }
+      &::before, &::after {
+        content: "";
+        position: absolute;
+        background-size: contain;
+        width: 100px;
+        height: 100px;
+        bottom: -20px;
+      }
+      &::before {
+        background-image: url(../img/campaign_background_left.png);
+        left: -40px;
+      }
+      &::after {
+        background-image: url(../img/campaign_background_right.png);
+        right: -40px;
       }
     }
     &--text {

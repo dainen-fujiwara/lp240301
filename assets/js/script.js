@@ -174,31 +174,32 @@ $('.slider_logo.list1').slick({
 	arrows: false,
 	autoplay: true,
 	autoplaySpeed: 0,
+	speed: 7000,
+	infinite: true,
+	pauseOnHover: false,
+	pauseOnFocus: false,
+	cssEase: 'linear',
+	slidesToShow: 1.5,
+	slidesToScroll: 1,
+});
+
+$('.slider_logo.list2').slick({
+	arrows: false,
+	autoplay: true,
+	autoplaySpeed: 0,
 	speed: 6000,
 	infinite: true,
 	pauseOnHover: false,
 	pauseOnFocus: false,
 	cssEase: 'linear',
-	slidesToShow: 1.25,
+	slidesToShow: 1.5,
 	slidesToScroll: 1,
-});
-
+});	
+/*
 //ずらすために時間差で動かす
 setTimeout(function(){
-	$('.slider_logo.list2').slick({
-		arrows: false,
-		autoplay: true,
-		autoplaySpeed: 0,
-		speed: 6000,
-		infinite: true,
-		pauseOnHover: false,
-		pauseOnFocus: false,
-		cssEase: 'linear',
-		slidesToShow: 1.25,
-		slidesToScroll: 1,
-	});	
-}, 1000);
-
+}, 2000);
+*/
 //$('html').css('overflow-y','hidden');
 
 
