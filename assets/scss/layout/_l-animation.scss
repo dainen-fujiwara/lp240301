@@ -1,0 +1,122 @@
+@use "../global" as *;
+
+.l-animation {
+  width: 100vw;
+  height: 100vh;
+  background-color: $palette-yellow;
+  position: fixed;
+  z-index: 100;
+  &__text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    padding: 0 40px;
+    text-align: center;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    color: $palette-white;
+    font-weight: bold;
+    font-size: 48px;
+    opacity: 0;
+    @include mq(l) {
+      font-size: 40px;
+    }
+    @include mq(sp) {
+      font-size: 32px;
+      padding: 0 20px;
+      top: 45%;
+    }
+    @include mq(s) {
+      font-size: 28px;
+      padding: 0 20px;
+      top: 45%;
+    }
+  &.hidden {
+      animation: text_fadeout 1s linear forwards;
+    }
+    &.active {
+      animation: text_fadein 1s linear forwards;
+    }
+    .emphasize {
+      color: $palette-white;
+      display: inline-block;
+      padding: 0 10px;
+      font-size: 96px;
+      @include mq(l) {
+        font-size: 80px;
+      }
+      @include mq(sp) {
+        padding: 0;
+        font-size: 64px;
+        display: block;
+      }
+      @include mq(sp) {
+        padding: 0;
+        font-size: 56px;
+        display: block;
+      }
+    }
+  }
+  &__skip{
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    background-image: url(../img/arrow_right_white.png);
+    background-size: 16px;
+    border: solid 3px $palette-white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    background-position: top 10px center;
+    cursor: pointer;
+    @include mq(sp) {
+      bottom: 80px;
+    }
+    span {
+      position: absolute;
+      bottom: 4px;
+      font-size: 16px;
+      color: $palette-white;
+      text-align: center;
+      width: 100%;
+    }
+  }
+}
+
+.l-mask {
+  min-width: 100%;
+  min-height: 100%;
+  height: calc(100% * 1.5);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  z-index: 1;
+  border: 1000px solid $palette-yellow;
+  -moz-transition: 1.5s ease;
+  -webkit-transition: 1.5s ease;
+  transition: 1.5s ease;
+}
+
+@keyframes text_fadein {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes text_fadeout {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}

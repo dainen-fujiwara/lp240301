@@ -1,6 +1,10 @@
 $(function() {
 
-  //DATEコンテンツ
+  $('.l-animation__skip').on('click', function(){
+		showMain();
+	});
+
+	//DATEコンテンツ
   $('.l-date .paging .left').on('click', function(){
 		pageMove('date', -1);
 	});
@@ -195,14 +199,41 @@ $('.slider_logo.list2').slick({
 	slidesToShow: 1.5,
 	slidesToScroll: 1,
 });	
-/*
-//ずらすために時間差で動かす
+
+//最初のアニメーション
+$('html').css('overflow-y','hidden');
+var show_time = 0;
+var hide_time = 0;
+var obj;
+
 setTimeout(function(){
-}, 2000);
-*/
-//$('html').css('overflow-y','hidden');
+		$('.l-animation__text').each(function(i, e){
+		show_time = i * 3500;
+		hide_time = i * 3500 + 2500;
+		setTimeout(function(){
+			$(e).removeClass('hidden');
+			$(e).addClass('active');
+		}, show_time);
+		setTimeout(function(){
+			$(e).removeClass('active');
+			$(e).addClass('hidden');
+		}, hide_time);
+	});
+}, 1500);
+
+setTimeout(function(){
+	showMain();
+}, 12000);
 
 
+//円を拡げる調整
+if ( $(window).width() > $(window).height() ) {
+	$('.l-mask').css('width', 'calc(100% * 1.5)');
+	$('.l-mask').css('height', 'unset');
+	$('.l-mask').css('border-width', $(window).width());
+} else {
+	$('.l-mask').css('border-width', $(window).height());
+}
 
 //スクロールした際の動きを関数でまとめる
 function PageTopAnime() {
@@ -398,4 +429,26 @@ function getRotationDegrees(obj) {
         var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
     } else { var angle = 0; }
     return (angle < 0) ? angle + 360 : angle;
+}
+
+//コンテンツ表示
+function showMain(){
+	$('html').css('overflow-y','auto');
+	$(window).scrollTop(0);
+	$('.l-animation').hide();
+	$('.l-mask').css('border-width', '0px');
+	setTimeout(function(){
+		$('.l-mask').hide();
+	}, 1500);
+
+	//トップsectionの強調文字
+	setTimeout(function(){
+		$('.l-top__contents--topics li.hyougo span').addClass('border');
+	}, 1000);
+	setTimeout(function(){
+		$('.l-top__contents--topics li.famous span').addClass('border');
+	}, 3000);
+	setTimeout(function(){
+		$('.l-top__contents--topics li.campaign span').addClass('border');
+	}, 5000);
 }
