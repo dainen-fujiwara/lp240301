@@ -27,7 +27,7 @@
 body {
   overflow-x: hidden;
   /*  background: #fccf00;*/
-  font-family: "Kosugi Maru", sans-serif;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Noto Sans JP", sans-serif;
   color: #333;
   font-size: 1rem;
   line-height: 1.85;
@@ -1528,13 +1528,21 @@ audio, canvas, progress, video {
 }
 .l-date__contents--tag {
   font-size: 16px;
-  padding: 30px;
+  padding: 30px 40px;
   color: #FFFFFF;
   font-weight: bold;
+  /*
+  p {
+    &::before {
+      content: '#';
+      margin-right: 4px;
+    }
+  }
+    */
 }
-.l-date__contents--tag p::before {
-  content: "#";
-  margin-right: 4px;
+.l-date__contents--tag .pickup {
+  font-size: 18px;
+  text-align: center;
 }
 .l-date__contents--button {
   margin-top: 20px;
@@ -1850,6 +1858,24 @@ audio, canvas, progress, video {
 }
 .l-modal__company {
   display: none;
+  max-width: 1024px;
+  margin: auto;
+}
+.l-modal__company--flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.l-modal__company--flex .company {
+  width: calc(50% - 20px);
+}
+@media (max-width: 828px) {
+  .l-modal__company--flex {
+    display: block;
+  }
+  .l-modal__company--flex .company {
+    width: auto;
+  }
 }
 
 .modaal-content-container h2 {

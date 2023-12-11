@@ -95,15 +95,21 @@
     }
     &--tag {
       font-size: 16px;
-      padding: 30px;
+      padding: 30px 40px;
       color: $palette-white;
       font-weight: bold;
+      .pickup{
+        font-size: 18px;
+        text-align: center;
+      }
+        /*
       p {
         &::before {
           content: '#';
           margin-right: 4px;
         }
       }
+        */
     }
     &--button {
       margin-top: 20px;

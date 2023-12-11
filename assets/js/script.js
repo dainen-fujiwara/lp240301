@@ -16,12 +16,43 @@ $(function() {
 		pageMove('date', 0, set_num);
 	});
 
+	/** スワイプイベント */
+	$(".l-date .l-date__body").on("touchstart", function(event){
+		start_check(event);
+	});
+	$(".l-date .l-date__body").on("touchmove", function(event){
+		move_check(event);
+	});
+	$(".l-date .l-date__body").on("touchend", function(){
+		var move = end_check();
+		if ( move == "left" ) {
+			pageMove('date', 1);
+		} else if ( move == "right" ) {
+			pageMove('date', -1);
+		}
+	});
+
 	//SCHEDULEコンテンツ
 	$('.l-schedule .paging .left').on('click', function(){
 		pageMove('schedule', -1);
 	});
 	$('.l-schedule .paging .right').on('click', function(){
 		pageMove('schedule', 1);
+	});
+	/** スワイプイベント */
+	$(".l-schedule .l-scheulde__body").on("touchstart", function(event){
+		start_check(event);
+	});
+	$(".l-schedule .l-scheulde__body").on("touchmove", function(event){
+		move_check(event);
+	});
+	$(".l-schedule .l-scheulde__body").on("touchend", function(){
+		var move = end_check();
+		if ( move == "left" ) {
+			pageMove('schedule', 1);
+		} else if ( move == "right" ) {
+			pageMove('schedule', -1);
+		}
 	});
 
 	//SEMINARコンテンツ
@@ -30,6 +61,21 @@ $(function() {
 	});
 	$('.l-seminar .paging .right').on('click', function(){
 		pageMove('seminar', 1);
+	});
+	/** スワイプイベント */
+	$(".l-seminar .l-seminar__body").on("touchstart", function(event){
+		start_check(event);
+	});
+	$(".l-seminar .l-seminar__body").on("touchmove", function(event){
+		move_check(event);
+	});
+	$(".l-seminar .l-seminar__body").on("touchend", function(){
+		var move = end_check();
+		if ( move == "left" ) {
+			pageMove('seminar', 1);
+		} else if ( move == "right" ) {
+			pageMove('seminar', -1);
+		}
 	});
 
 	//予約フォーム
@@ -205,7 +251,7 @@ $('html').css('overflow-y','hidden');
 var show_time = 0;
 var hide_time = 0;
 var obj;
-
+/*
 setTimeout(function(){
 		$('.l-animation__text').each(function(i, e){
 		show_time = i * 3500;
@@ -224,6 +270,11 @@ setTimeout(function(){
 setTimeout(function(){
 	showMain();
 }, 12000);
+*/
+
+setTimeout(function(){
+	showMain();
+}, 1500);
 
 
 //円を拡げる調整
@@ -451,4 +502,41 @@ function showMain(){
 	setTimeout(function(){
 		$('.l-top__contents--topics li.campaign span').addClass('border');
 	}, 5000);
+}
+
+
+var modeX,posiX;
+
+//タッチ開始時の処理
+function start_check(event) {
+	/** 現在の座標取得 */
+	posiX = getX(event);
+
+	/** 移動距離状態を初期化 */
+	moveX = "";
+
+}
+
+//スワイプ中の処理
+function move_check(event){
+		/** 右→左と判断 */
+	if (posiX - getX(event) > 70) {
+		moveX = "left";
+		/** 左→右と判断 */			
+	} else if (posiX - getX(event) < -70) {
+		moveX = "right";
+	}
+}
+
+//指が離れた時の処理
+function end_check(){
+	return moveX;
+}
+//縦方向の座標を取得
+function getY(event) {
+	return (event.originalEvent.touches[0].pageY);
+}
+//横方向の座標を取得
+function getX(event) {
+	return (event.originalEvent.touches[0].pageX);
 }

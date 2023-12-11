@@ -9,6 +9,22 @@
   display: none;
   &__company {
     display: none;
+    max-width: 1024px;
+    margin: auto;
+    &--flex{
+      display: flex;
+      justify-content:space-between;
+      flex-wrap: wrap;
+      .company {
+        width: calc(50% - 20px);
+      }
+      @include mq(sp) {
+        display: block;
+        .company {
+          width: auto;
+        }
+      }
+    }
   }
 }
 .modaal-content-container {
