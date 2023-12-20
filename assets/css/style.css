@@ -36,7 +36,7 @@ body {
   -webkit-text-size-adjust: 100%;
   word-wrap: break-word;
   letter-spacing: 0.2em;
-  background-color: #FBD101;
+  /*  background-color: $palette-yellow;*/
 }
 body.appear {
   background: #f0f0f0;
@@ -44,7 +44,7 @@ body.appear {
 
 main {
   background-color: #FFFFFF;
-  max-width: 1480px;
+  /*  max-width: 1480px;*/
   margin: auto;
   position: relative;
 }
@@ -135,6 +135,104 @@ footer .contents .company {
   }
 }
 
+.ouro {
+  z-index: 11000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  position: fixed;
+  display: inline-block;
+  height: 46px;
+  width: 46px;
+  margin: 1em;
+  border-radius: 50%;
+  background: none repeat scroll 0 0 #DDDDDD; /* ベースの色 - 可変 */
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) inset, 0 0 25px rgba(0, 0, 255, 0.075);
+}
+.ouro:after {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  display: block;
+  height: 28px;
+  width: 28px;
+  background: none repeat scroll 0 0 #F2F2F2;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.ouro span {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+}
+.ouro .left {
+  left: 0;
+}
+.ouro .right {
+  left: 50%;
+}
+.ouro .anim {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: none repeat scroll 0 0 Tomato; /* Ouroborosの色 - 可変 */
+  opacity: 0.8;
+  animation: ui-spinner-rotate-left 3s infinite;
+  transform-origin: 0 50% 0;
+}
+.ouro .left .anim {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.ouro .right .anim {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  left: -100%;
+  transform-origin: 100% 50% 0;
+}
+
+@keyframes ui-spinner-rotate-right {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ui-spinner-rotate-left {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes backBoxAnime {
   99.9% {
     /*アニメーション終了ぎりぎりまで*/
@@ -1291,7 +1389,7 @@ audio, canvas, progress, video {
   background-color: #FFFFFF;
   padding: 10px 20px;
   border-radius: 8px;
-  height: 70px;
+  height: 84px;
   vertical-align: middle;
   border: solid 1px #CCC;
 }
@@ -1431,6 +1529,19 @@ audio, canvas, progress, video {
   transform: rotate(50deg);
 }
 
+.l-bgtop {
+  position: absolute;
+  width: 100%;
+  height: 1050px;
+  background-image: linear-gradient(#FFEB6D 50%, #FFF);
+}
+.l-bgtop--img {
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/bgimg.png);
+  background-repeat: repeat;
+}
+
 .l-date {
   position: relative;
 }
@@ -1531,6 +1642,8 @@ audio, canvas, progress, video {
   padding: 30px 40px;
   color: #FFFFFF;
   font-weight: bold;
+  max-width: 380px;
+  margin: auto;
   /*
   p {
     &::before {
@@ -1913,6 +2026,14 @@ audio, canvas, progress, video {
   width: 240px;
   margin: 0 auto;
 }
+.modaal-content-container .close-btn {
+  width: 240px;
+  margin: 0 auto;
+}
+.modaal-content-container .cancel-btn {
+  width: 240px;
+  margin: 0 auto;
+}
 .modaal-content-container .submit-btn input[type=button], .modaal-content-container .submit-btn input[type=submit] {
   background: #FBD101;
   color: #fff;
@@ -1922,6 +2043,56 @@ audio, canvas, progress, video {
   border-radius: 8px;
   margin: 0 auto;
 }
+.modaal-content-container .close-btn input[type=button], .modaal-content-container .close-btn input[type=submit] {
+  background: #818181;
+  color: #fff;
+  text-align: center;
+  padding: 15px 10px;
+  width: 240px;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+.modaal-content-container .cancel-btn input[type=button], .modaal-content-container .cancel-btn input[type=submit] {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 15px 10px;
+  width: 240px;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+.modaal-content-container .login-btn input[type=button], .modaal-content-container .login-btn input[type=submit] {
+  background: #539ff5;
+  color: #fff;
+  text-align: center;
+  padding: 15px 10px;
+  width: 240px;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+.modaal-content-container .register-btn input[type=button], .modaal-content-container .register-btn input[type=submit] {
+  background: #16be82;
+  color: #fff;
+  text-align: center;
+  padding: 15px 10px;
+  width: 240px;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+.modaal-content-container .btn-wrap {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+@media (max-width: 828px) {
+  .modaal-content-container .btn-wrap {
+    display: block;
+    text-align: center;
+  }
+  .modaal-content-container .btn-wrap div:first-child {
+    margin-bottom: 20px;
+  }
+}
 .modaal-content-container a span {
   position: relative;
 }
@@ -1929,7 +2100,7 @@ audio, canvas, progress, video {
   content: "";
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32px 24px"><path fill="%23fff" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" /><path fill="%23fff" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" /></svg>');
   position: absolute;
-  bottom: 0;
+  bottom: 6px;
   right: -22px;
   width: 16px;
   height: 16px;

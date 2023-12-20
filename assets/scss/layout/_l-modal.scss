@@ -61,6 +61,14 @@
     width: 240px;
     margin: 0 auto;
   }
+  .close-btn {
+    width: 240px;
+    margin: 0 auto;
+  }
+  .cancel-btn {
+    width: 240px;
+    margin: 0 auto;
+  }
   .submit-btn input[type=button], .submit-btn input[type=submit] {
     background: #FBD101;
     color: #fff;
@@ -70,6 +78,61 @@
     border-radius: 8px;
     margin: 0 auto;
   }
+  .close-btn input[type=button], .close-btn input[type=submit] {
+    background: #818181;
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    width: 240px;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+  .cancel-btn input[type=button], .cancel-btn input[type=submit] {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    width: 240px;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+  .login-btn input[type=button], .login-btn input[type=submit] {
+    background: #539ff5;
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    width: 240px;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+  .register-btn input[type=button], .register-btn input[type=submit] {
+    background: #16be82;
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    width: 240px;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+  .btn-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    @include mq(sp) {
+      display: block;
+      text-align: center;
+      div:first-child{
+        margin-bottom: 20px;
+      }
+    }
+  }
   a {
     span {
       position: relative;
@@ -77,7 +140,7 @@
         content: "";
         @include svg-link("fff");
         position: absolute;
-        bottom: 0;
+        bottom: 6px;
         right: -22px;
         width: 16px;
         height: 16px;

@@ -87,41 +87,54 @@ $(function() {
 		},
 		after_close:function(){
 			$('html').css('overflow-y','scroll');
+
+      $('#reserve_area .form').each(function(i, e){
+        $(e).hide();
+      });
+      $('#form-01').show();
 		}
 	});
 	$(".btn_primary").on('click', function(){
-		var date_id = $(this).attr('date-id');
+		var event_id = $(this).attr('event-id');
+    $('#EventID').val(event_id);
+
 		var title = "";
-		
-		if ( date_id == "1" ) {
+		if ( event_id == "18" ) {
 			title = "2月29日（木）午前の部";
-		} else if ( date_id == "2" ) {
+		} else if ( event_id == "19" ) {
 			title = "2月29日（木）午後の部";
-		} else if ( date_id == "3" ) {
+		} else if ( event_id == "20" ) {
 			title = "3月1日（金）午前の部";
-		} else if ( date_id == "4" ) {
+		} else if ( event_id == "21" ) {
 			title = "3月1日（金）午後の部";
-		} else if ( date_id == "5" ) {
+		} else if ( event_id == "22" ) {
 			title = "3月2日（土）午前の部";
-		} else if ( date_id == "6" ) {
+		} else if ( event_id == "23" ) {
 			title = "3月2日（土）午後の部";
 		}
 
 		$('#form-01 h3').text(title);
 		$('#form-02 h3').text(title);
+
+    $('#reseve_btn').hide();
+    $('#cancel_btn').hide();
+
+    //予約状態のチェック
+    checkEvent();
+
 	});
-	
+
+  //予約する
 	$('#reseve_btn').on('click', function(){
-		$('#form-01').fadeOut(200, function() {
-			$('#form-02').fadeIn(200);
-		})
+    reserveEvent();
 	});
+  //キャンセルする
+	$('#cancel_btn').on('click', function(){
+    cancelEvent();
+	});
+  //閉じる
 	$('#close_btn').on('click', function(){
 		$('.btn_primary').modaal('close');
-		setTimeout(function(){
-			$('#form-01').show();
-			$('#form-02').hide();
-		}, 200);
 	});
 
 	//参加企業一覧
@@ -138,10 +151,18 @@ $(function() {
 	$(".btn_list").on('click', function(){
 		$('.l-modal__company').each(function(i, e){
 			$(e).hide();
-		});	
+		});
 		var date_id = $(this).attr('date-id');
 		var show_name = ".l-modal__company.date" + date_id;
 		$(show_name).show();
+	});
+
+	//ボタン
+	$('#login_btn').on('click', function(){
+		location.href= root_path + '/member/login/';
+	});
+	$('#register_btn').on('click', function(){
+		location.href= root_path + '/member/register/';
 	});
 
 });
@@ -244,7 +265,7 @@ $('.slider_logo.list2').slick({
 	cssEase: 'linear',
 	slidesToShow: 1.5,
 	slidesToScroll: 1,
-});	
+});
 
 //最初のアニメーション
 $('html').css('overflow-y','hidden');
@@ -522,7 +543,7 @@ function move_check(event){
 		/** 右→左と判断 */
 	if (posiX - getX(event) > 70) {
 		moveX = "left";
-		/** 左→右と判断 */			
+		/** 左→右と判断 */
 	} else if (posiX - getX(event) < -70) {
 		moveX = "right";
 	}
@@ -539,4 +560,252 @@ function getY(event) {
 //横方向の座標を取得
 function getX(event) {
 	return (event.originalEvent.touches[0].pageX);
+}
+
+
+//ドキュメントルートの設定
+var uri = new URL(window.location.href);
+
+if ( uri.hostname == 'localhost' ) {
+  var root_path = "/Harimatch/";
+} else {
+  var root_path = "/";
+}
+
+/*
+ * ユーザーがログイン済みかチェック
+ */
+function chkUserLogin(){
+
+  var r_bool = false;
+  var user_login = localStorage.getItem('UserLogin');
+
+  if ( user_login == "" ) {
+
+    //ユーザーIDの取得
+    $.ajax({
+      url      : root_path + "ajax/common/get_user_id_ajax.php",
+      type     : "post",
+      dataType : "json",
+      async    : false,
+
+    }).done(function(data) {
+
+      if ( data.UID != null && data.UID != "" && data.UID != "null" ) {
+        localStorage.setItem('UserLogin', 'true');
+        localStorage.setItem('LoginName', data.LoginName);
+        r_bool = true;
+      } else {
+        localStorage.setItem('UserLogin', '');
+        localStorage.setItem('LoginName', '');
+      }
+
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+
+      console.log(jqXHR.status);
+      console.log(jqXHR.responseText);
+      console.log(textStatus);
+      console.log(errorThrown);
+      console.log('エラー');
+
+    });
+
+
+  } else {
+    r_bool = true;
+  }
+
+  //ログインしていない
+  if (!r_bool) {
+		$('#form-01').fadeOut(200, function() {
+			$('#form-login').fadeIn(200);
+		})
+  }
+
+  return r_bool;
+
+}
+
+/* イベント予約状態の取得 */
+function checkEvent(){
+
+  //ユーザーのログインチェック
+  if (!chkUserLogin()){
+    return;
+  }
+
+  showSpiner();    //スピナーの表示
+
+  var event_id = $('#EventID').val();
+
+  //情報登録
+  $.ajax({
+    url      : root_path + "ajax/event/check_user_ajax.php",
+    type     : "post",
+    data     : {"event_id" : event_id},
+    dataType : "json"
+
+  }).done(function(data) {
+
+    hideSpiner();    //スピナーの非表示
+
+    if ( data.reserve_status == "ok" ) {
+      $('#form-01 p').text('この就活イベントに予約しますか？');
+      $('#reseve_btn').show();
+
+    } else if ( data.reserve_status == "reserved" ) {
+      $('#form-01 p').text('この就活イベントの予約をキャンセルしますか？');
+      $('#cancel_btn').show();
+
+    } else if ( data.reserve_status == "before" ) {
+      $('#form-01 p').text('予約受付前になります');
+
+    } else if ( data.reserve_status == "expired" ) {
+      $('#form-01 p').text('予約の期限が過ぎています');
+
+    } else if ( data.reserve_status == "full" ) {
+      $('#form-01 p').text('定員が満員になりました');
+
+    }
+
+
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+
+    console.log(jqXHR.status);
+    console.log(jqXHR.responseText);
+    console.log(textStatus);
+    console.log(errorThrown);
+
+    hideSpiner();    //スピナーの非表示
+
+    alert('予約に失敗しました');
+
+  });
+
+}
+
+/* イベントの予約 */
+function reserveEvent(){
+/*
+  //ユーザーのログインチェック
+  if (!chkUserLogin()){
+    return;
+  }
+*/
+  showSpiner();    //スピナーの表示
+
+  var event_id = $('#EventID').val();
+
+  //情報登録
+  $.ajax({
+    url      : root_path + "ajax/event/reserve_user_ajax.php",
+    type     : "post",
+    data     : {"event_id" : event_id},
+    dataType : "json"
+
+  }).done(function(data) {
+
+    hideSpiner();    //スピナーの非表示
+
+    if ( data.r_bool == false ) {
+      alert('予約に失敗しました');
+      return;
+    }
+
+    $('#form-02 p').text('予約が完了しました');
+    $('#form-01').fadeOut(200, function() {
+			$('#form-02').fadeIn(200);
+		});
+
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+
+    console.log(jqXHR.status);
+    console.log(jqXHR.responseText);
+    console.log(textStatus);
+    console.log(errorThrown);
+
+    hideSpiner();    //スピナーの非表示
+
+    alert('予約に失敗しました');
+
+  });
+
+}
+
+/* イベント予約のキャンセル */
+function cancelEvent(){
+/*
+  //ユーザーのログインチェック
+  if (!chkUserLogin()){
+    return;
+  }
+*/
+  if ( !confirm('予約をキャンセルします。\nよろしいですか？') ) {
+    return;
+  }
+
+  showSpiner();    //スピナーの表示
+
+  var event_id = $('#EventID').val();
+
+  //情報登録
+  $.ajax({
+    url      : root_path + "ajax/event/cancel_user_ajax.php",
+    type     : "post",
+    data     : {"event_id" : event_id},
+    dataType : "json"
+
+  }).done(function(data) {
+
+    hideSpiner();    //スピナーの非表示
+
+    if ( data.r_bool == false ) {
+      alert('キャンセル期限が過ぎているため、キャンセルできませんでした。');
+      return;
+    }
+
+    $('#form-02 p').text('予約をキャンセルしました');
+    $('#form-01').fadeOut(200, function() {
+			$('#form-02').fadeIn(200);
+		});
+
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+
+    console.log(jqXHR.status);
+    console.log(jqXHR.responseText);
+    console.log(textStatus);
+    console.log(errorThrown);
+
+    hideSpiner();    //スピナーの非表示
+    alert('キャンセルに失敗しました');
+
+  });
+
+}
+
+
+/*
+ * スピナーの表示（円）
+ */
+function showSpiner(obj_name='body') {
+
+  var html = ''
+  + '<div class="ouro">'
+  + '  <span class="left">'
+  + '    <span class="anim"></span>'
+  + '  </span>'
+  + '  <span class="right">'
+  + '    <span class="anim"></span>'
+  + '  </span>'
+  + '</div>'
+  ;
+
+  $(obj_name).append(html);
+}
+
+/*
+ * スピナーの削除
+ */
+function hideSpiner(obj_name='body') {
+  $(obj_name + ' .ouro').hide();
 }
