@@ -1387,7 +1387,7 @@ audio, canvas, progress, video {
 }
 .slider_logo li {
   background-color: #FFFFFF;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 8px;
   height: 84px;
   vertical-align: middle;
@@ -1532,7 +1532,7 @@ audio, canvas, progress, video {
 .l-bgtop {
   position: absolute;
   width: 100%;
-  height: 1050px;
+  height: 780px;
   background-image: linear-gradient(#FFEB6D 50%, #FFF);
 }
 .l-bgtop--img {
@@ -1831,6 +1831,9 @@ audio, canvas, progress, video {
   font-size: 14px;
   border: solid 1px #F0F3F5;
 }
+.l-seminar__contents--text ul {
+  padding-left: 20px;
+}
 .l-seminar__memo {
   padding: 0 20px;
   display: flex;
@@ -1944,7 +1947,7 @@ audio, canvas, progress, video {
 }
 .l-info__contents dd img {
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
 }
 .l-info__contents dd iframe {
   width: 100%;
