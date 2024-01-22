@@ -159,10 +159,10 @@ $(function() {
 
 	//ボタン
 	$('#login_btn').on('click', function(){
-		location.href= root_path + '/member/login/';
+		location.href= '/member/login/';
 	});
 	$('#register_btn').on('click', function(){
-		location.href= root_path + '/member/register/';
+		location.href= '/member/register/';
 	});
 
 });
@@ -686,12 +686,12 @@ function checkEvent(){
 
 /* イベントの予約 */
 function reserveEvent(){
-/*
+
   //ユーザーのログインチェック
   if (!chkUserLogin()){
     return;
   }
-*/
+
   showSpiner();    //スピナーの表示
 
   var event_id = $('#EventID').val();
@@ -734,12 +734,12 @@ function reserveEvent(){
 
 /* イベント予約のキャンセル */
 function cancelEvent(){
-/*
+
   //ユーザーのログインチェック
   if (!chkUserLogin()){
     return;
   }
-*/
+
   if ( !confirm('予約をキャンセルします。\nよろしいですか？') ) {
     return;
   }
