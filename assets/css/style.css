@@ -2013,7 +2013,7 @@ audio, canvas, progress, video {
 }
 @media (max-width: 828px) {
   .modaal-content-container h4 span {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 .modaal-content-container p {
