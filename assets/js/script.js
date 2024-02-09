@@ -678,7 +678,7 @@ function checkEvent(){
 
     hideSpiner();    //スピナーの非表示
 
-    alert('予約に失敗しました');
+    alert('イベント情報の読み込みに失敗しました');
 
   });
 
@@ -708,7 +708,8 @@ function reserveEvent(){
     hideSpiner();    //スピナーの非表示
 
     if ( data.r_bool == false ) {
-      alert('予約に失敗しました');
+      alert('予約に失敗しました。');
+      location.reload();
       return;
     }
 
@@ -727,6 +728,7 @@ function reserveEvent(){
     hideSpiner();    //スピナーの非表示
 
     alert('予約に失敗しました');
+    location.reload();
 
   });
 
@@ -778,6 +780,7 @@ function cancelEvent(){
 
     hideSpiner();    //スピナーの非表示
     alert('キャンセルに失敗しました');
+    location.reload();
 
   });
 
